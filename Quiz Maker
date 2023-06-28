@@ -1,0 +1,58 @@
+2.) Quiz Maker - Make an application which takes various questions from a file, picked randomly, and puts together a quiz for students. Each quiz can be different and then reads a key to grade the quizzes.
+
+import random
+
+# Read questions from file
+def read_questions(file_path):
+    questions = []
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        for line in lines:
+            question = line.strip()
+            questions.append(question)
+    return questions
+
+# Create a quiz by randomly selecting questions
+def create_quiz(questions, num_questions):
+    quiz = random.sample(questions, num_questions)
+    return quiz
+
+# Present the quiz to students
+def present_quiz(quiz):
+    for i, question in enumerate(quiz, start=1):
+        print(f"Question {i}: {question}")
+        # You can prompt for student's answer here
+
+# Grade the quizzes using a key
+def grade_quiz(quiz, key):
+    num_correct = 0
+    for i, (question, answer) in enumerate(zip(quiz, key), start=1):
+        # You can compare student's answer with the key here
+        # If the answer is correct, increment num_correct
+        if student_answer == answer:
+            num_correct += 1
+    return num_correct
+
+# Example usage
+questions_file = "questions.txt"
+key_file = "key.txt"
+num_questions = 5
+
+# Read questions from file
+questions = read_questions(questions_file)
+
+# Create a quiz
+quiz = create_quiz(questions, num_questions)
+
+# Present the quiz to students
+present_quiz(quiz)
+
+# Get the key from file
+with open(key_file, 'r') as file:
+    key = file.readline().strip().split()
+
+# Grade the quiz
+num_correct = grade_quiz(quiz, key)
+
+# Print the result
+print(f"Number of correct answers: {num_correct}/{num_questions}")
